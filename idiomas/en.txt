@@ -1,0 +1,13 @@
+title = Stack Automata
+title-menu = Automata Menu
+idioma = Language
+insertarPalabra = Validate Word
+history = History
+title-form = Word Validation
+velocity = Velocity:
+words = Words
+state = State
+textLoad = Loading...
+formSubmit = Check Word
+textModal = Accepted Word
+textModal2 = Rejected Word
