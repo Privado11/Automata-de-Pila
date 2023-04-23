@@ -1,16 +1,17 @@
 
 let diagram;
 
+
 window.onload = function init() {
   
         // Definir los datos del autómata
-        var nodeDataArray = [
+        let nodeDataArray = [
           { key: "0", text: "q0", loc: new go.Point(-150, 0) },
           { key: "1", text: "q1", loc: new go.Point(0, 0), isAccept: false },
           { key: "2", text: "q2", loc: new go.Point(150, 0), isAccept: true },
         ];
       
-        var linkDataArray = [
+        let linkDataArray = [
           // Desde el nodo 0 al mismo
           { from: "0", to: "0", text: "b,b/bb\na,b/ba\nb,a/ab\na,a/aa\nb,#/#b\na,#/#a" },
           // Desde el nodo 0 al nodo 1
@@ -21,9 +22,8 @@ window.onload = function init() {
           { from: "1", to: "2", text: "λ,#/#" }
         ];
         
-      
       // Crear el diagrama con GoJS
-      var $ = go.GraphObject.make;
+      let $ = go.GraphObject.make;
       
       diagram = $(go.Diagram, "myDiagramDiv", {
           "undoManager.isEnabled": true,
@@ -65,12 +65,17 @@ window.onload = function init() {
           })
         )
       );
-    
 
       
+    
       // Agregar los datos al diagrama
       diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
       diagram.isReadOnly = true;
+
       
-    
 }
+
+
+
+
+
