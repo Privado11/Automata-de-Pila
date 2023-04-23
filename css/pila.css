@@ -1,0 +1,27 @@
+.Pila{
+    width: 100px;
+    background-color:#19A7CE;
+    position:absolute;
+    bottom: 10px;
+    right: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    gap: 5px;
+}
+.elementoPila{
+    height: 30px;
+    width: 80px;
+    border: 1px solid black;   
+    background-color: white; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#textPila{
+    font-size: 1rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 900;
+}

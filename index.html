@@ -9,15 +9,19 @@
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/load.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/pila.css">
     <script defer src="js/index.js"></script>
     <script defer src="./js/automata.js"></script>
     <script defer src="https://unpkg.com/gojs/release/go.js"></script>
+    <script defer src="js/pila.js"></script>
     <title>Autómata de Pila</title>
 </head>
 <body>
     <main class="containerAutomata">
         <h1 class="titlleAutomata" id="title"></h1>
         <div class="graficoAutomata" id="myDiagramDiv"></div>
+        <div class="Pila" id="Pila">
+        </div>
     </main>
     <section class="Menu" id="Menu">
         <div class="headerMenu">
@@ -61,15 +65,15 @@
             <div class="oculto" id="historialContainer">
                 <table id="tabla-datos">
                     <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th id="words"></th>
-                        <th id="state"></th>
-                      </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th id="words"></th>
+                            <th id="state"></th>
+                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
-                  </table>
+                </table>
             </div>
         </div>
     </section>

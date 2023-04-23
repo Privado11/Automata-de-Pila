@@ -33,9 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function mostrarValorRango() {
-  var rango = document.getElementById("formRango");
-  var valor = document.getElementById("valorRango");
-  valor.textContent = rango.value;
+    var rango = document.getElementById("formRango");
+    var valor = document.getElementById("valorRango");
+    valor.textContent = rango.value;
 }
 
 

@@ -4,6 +4,7 @@
     width: 70%;
     height: 100vh;
     text-align: center;
+    position: relative;
 }
 .titlleAutomata{
     transition: all linear .4s;
