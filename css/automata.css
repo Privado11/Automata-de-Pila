@@ -1,15 +1,25 @@
 .containerAutomata{
+    transition: all linear .4s;
     background: #F6F1F1;
     width: 70%;
     height: 100vh;
     text-align: center;
 }
-.tittleAutomata{
-    height: 15%;
-    margin-top: 40px;
+.titlleAutomata{
+    transition: all linear .4s;
     width: 100%;
 }
 .graficoAutomata{
     height: 93%;
     width: 100%;
+}
+
+.tittleDarck{
+    transition: all linear .4s;
+    background-color: grey;
+    color: white;
+}
+.containerAutomataDarck{
+    background-color: grey;
+    transition: all linear .4s;
 }

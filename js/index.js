@@ -6,6 +6,10 @@ const activarForm = document.getElementById('insertarPalabra')
 const cuboIcon = document.getElementById('cuboIcon')
 const form = document.getElementById('form')
 
+const check = document.getElementById('clickDarkMode');
+const tittle = document.getElementById('title');
+const containerAutomata = document.getElementById('myDiagramDiv');
+const Menu = document.getElementById('Menu');
 
 window.addEventListener('load',()=>{
     setTimeout(()=>{
@@ -40,24 +44,24 @@ loadTranslation('es');
 const items = document.querySelectorAll('.items');
 const dropdownContent = document.querySelector('.dropdown-content');
 
- 
+
 function loadTranslation(lang) {
     fetch(`idiomas/${lang}.txt`)
-      .then(response => response.text())
-      .then(data => {
-        const translations = data.split('\n');
-        translations.forEach(translation => {
-        const [key, value] = translation.trim().split(/\s*=\s*/);
-        const element = document.getElementById(key);
-        const elements = [element];
-          elements.forEach(element => {
-            element.textContent = value;
-          });
-        }); 
+        .then(response => response.text())
+        .then(data => {
+            const translations = data.split('\n');
+            translations.forEach(translation => {
+            const [key, value] = translation.trim().split(/\s*=\s*/);
+            const element = document.getElementById(key);
+            const elements = [element];
+            elements.forEach(element => {
+                element.textContent = value;
+            });
+            }); 
     })
     .catch(error => console.error(error));
 }
-  
+
 
 
 function highlightLanguage(item) {
@@ -80,3 +84,11 @@ items.forEach(item => {
 document.getElementById('idioma').addEventListener('click', function() {
     dropdownContent.classList.toggle('show');
 });
+
+check.addEventListener('click',toggleEstilos)
+
+function toggleEstilos(){
+    Menu.classList.toggle('MenuDarck');
+    tittle.classList.toggle('tittleDarck');
+    containerAutomata.classList.toggle('containerAutomataDarck');
+}
