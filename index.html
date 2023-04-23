@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/load.css">
     <link rel="stylesheet" href="css/modal.css">
     <script defer src="js/index.js"></script>
+    <script defer src="./js/automata.js"></script>
+    <script defer src="https://unpkg.com/gojs/release/go.js"></script>
     <title>Autómata de Pila</title>
 </head>
 <body>
@@ -17,7 +19,7 @@
         <h1 class="titlleAutomata" id="title"></h1>
         <div class="graficoAutomata" id="myDiagramDiv"></div>
     </main>
-    <section class="Menu">
+    <section class="Menu" id="Menu">
         <div class="headerMenu">
             <h1 class="tittleMenu" id="title-menu"></h1>
             <div class="containerOpcionMenu">
@@ -31,7 +33,7 @@
                 </div>
 
                 <input type="checkbox" name="" id="clickDarkMode" class="clickDarkMode">
-                <label for="clickDarkMode">
+                <label for="clickDarkMode" id="clickDarkMode">
                     <div class="DarkMode"></div>
                 </label>
             </div>

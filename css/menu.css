@@ -8,7 +8,14 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    transition: all linear .4s;
 }
+
+.MenuDarck{
+    background-color: rgb(42, 42, 42);
+    transition: all linear .4s;
+}
+
 .headerMenu{
     display: flex;
     align-items: center;
