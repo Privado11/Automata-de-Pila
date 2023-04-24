@@ -5,6 +5,8 @@ const textLoader = document.getElementById('textLoad');
 const activarForm = document.getElementById('insertarPalabra')
 const cuboIcon = document.getElementById('cuboIcon')
 const form = document.getElementById('form')
+const historialContenedor = document.getElementById('historialContainer');
+const botonHistorial = document.getElementById('history');
 
 const check = document.getElementById('clickDarkMode');
 const tittle = document.getElementById('title');
@@ -92,3 +94,11 @@ function toggleEstilos(){
     tittle.classList.toggle('tittleDarck');
     containerAutomata.classList.toggle('containerAutomataDarck');
 }
+
+function abrirHistorial(){
+    historialContenedor.classList.remove('oculto')
+    historialContenedor.classList.add('containerHistorial')
+    cuboIcon.classList.add('oculto')
+}
+
+botonHistorial.addEventListener('click',abrirHistorial)
