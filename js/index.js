@@ -103,3 +103,65 @@ function abrirHistorial(){
 }
 
 botonHistorial.addEventListener('click',abrirHistorial)
+
+function actualizarVelocidad() {
+    let speed = document.getElementById("formRango").value;
+    timeoutDelay = 5000 - (speed * 45);
+    timeoutDelayLinks = 4000 - (speed * 45);
+}
+
+    actualizarVelocidad();
+
+    document.getElementById("formRango").addEventListener("input", function() {
+        actualizarVelocidad();
+    });
+
+
+function mostrarModal(Aceptado){
+modal.classList.remove('oculto')
+modal.classList.add('containerModal')
+mostrarResultado(Aceptado);
+}
+
+function mostrarResultado(Aceptado){
+if(Aceptado){
+    const text1 = document.getElementById("textModal");
+    text1.style.display = "block";
+    const text2 = document.getElementById("textModal2");
+    text2.style.display = "none";
+    const frase = text1.textContent;
+    aceptadoModal.classList.remove('oculto')
+    aceptadoModal.classList.add('aceptada')
+    const mensaje = new SpeechSynthesisUtterance(frase);
+    mensaje.pitch = -1;
+    setTimeout(() => {
+        speechSynthesis.speak(mensaje);
+    }, 500);
+    guardarEstado(true)
+}else{
+    const text1 = document.getElementById("textModal");
+    text1.style.display = "none";
+    const text2 = document.getElementById("textModal2");
+    text2.style.display = "block";
+    const frase = text2.textContent;
+    noAceptadoModal.classList.remove('oculto')
+    noAceptadoModal.classList.add('noAceptada')
+    const mensaje = new SpeechSynthesisUtterance(frase);
+    mensaje.pitch = -1;
+    setTimeout(() => {
+        speechSynthesis.speak(mensaje);
+    }, 500);
+    guardarEstado(false)
+}
+}
+
+botonModal.addEventListener('click',()=>{
+modal.classList.add('oculto')
+modal.classList.remove('containerModal')
+
+aceptadoModal.classList.remove('aceptado')
+noAceptadoModal.classList.remove('noAceptada')
+
+aceptadoModal.classList.add('oculto')
+noAceptadoModal.classList.add('oculto')
+})
