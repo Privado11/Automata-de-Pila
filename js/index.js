@@ -100,6 +100,7 @@ function abrirHistorial(){
     historialContenedor.classList.add('containerHistorial')
     cuboIcon.classList.add('oculto')
     form.classList.add('oculto')
+    obtenerDatos()
 }
 
 botonHistorial.addEventListener('click',abrirHistorial)
