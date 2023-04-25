@@ -1,5 +1,4 @@
-document.addEventListener('load',obtenerPalabras())
-comprobarPalabra.addEventListener('click',enviarDatos())
+//document.addEventListener('load',obtenerPalabras())
 
 
 function obtenerPalabras(){

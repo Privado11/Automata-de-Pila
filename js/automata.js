@@ -70,14 +70,11 @@ window.onload = function init() {
           })
         )
       );
-    
-
       
       // Agregar los datos al diagrama
       diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
       diagram.isReadOnly = true;
 }
-
 
 function procesarEntrada(evento,entrada) {
     evento.preventDefault();
@@ -85,6 +82,7 @@ function procesarEntrada(evento,entrada) {
     var estadoActual = diagram.findNodeForKey("0");
     var pila = ["#"]; // iniciar la pila con el símbolo inicial
     var siguienteEstado = null;
+    let introducirAPila=[];
     // Colocamos los nodos al color por defecto
     diagram.nodes.each(function(node) {
       node.findMainElement().stroke = "black";
@@ -97,82 +95,92 @@ function procesarEntrada(evento,entrada) {
       link.path.strokeDashArray = [];
     });
 
+    let mitad = entrada.length%2 ==0 ?entrada.length/2 :entrada.length/2+1
+
+    //console.log(mitad)
     // Recorrer la entrada
         for (let i = 0; i < entrada.length; i++) {
           var simbolo = entrada[i];
           // Buscar la conexión correspondiente al estado actual y al símbolo actual
-          let conexion = diagram.links.each(function(link) {
+          
+          diagram.links.each(function(link) {
             let grupoLinks=link.data.text.split('\n')
+            //console.log(grupoLinks)
             grupoLinks.map((elemento)=>{
+              //onsole.log(elemento+' '+index)
+              //console.log('entro: '+elemento+' '+index)
+                let caracter=elemento.split(',')
 
-              let caracter=elemento.split(',')
-              //console.log('este es:'+caracter[1])
-
-              //el tope indicado en el link
-              let caracterTope = caracter[1].split('/')
-
-              let tope = obtenerTope();
-              //console.log('tope:'+tope)
-
-              if (link.fromNode.data.key === estadoActual.data.key && caracter[0] === simbolo &&  caracterTope[0]===tope) {
-                siguienteEstado = diagram.findNodeForKey(link.toNode.data.key);
-                console.log('entro: '+siguienteEstado)
-                return siguienteEstado;
-              }
+                //el tope indicado en el link
+                let caracterTope = caracter[1].split('/')
+                //let introducirAPila = caracterTope[1].split('')
+                let tope = obtenerTope();
+                if (link.fromNode.data.key === estadoActual.data.key && caracter[0] === simbolo &&  caracterTope[0]===tope) {
+                  siguienteEstado = diagram.findNodeForKey(link.toNode.data.key);
+                  console.log('enlace escogido: '+elemento)
+                  let letraInicial = elemento.split(',') 
+                  let tope = letraInicial[1].split('/')
+                  introducirAPila = tope[1].split('')
+                  console.log(introducirAPila)
+                  eliminarTope()
+                  añadirAapila(introducirAPila)
+                  //console.log('entro: '+siguienteEstado)
+                  return siguienteEstado;
+                }
             })
           });
-
-          if(siguienteEstado=== null){
+            if(siguienteEstado=== null){
+              estadoActual.findMainElement().stroke = "black";
+              estadoActual.findMainElement().fill = "red";
+              setTimeout(function() {
+                //mostrarModal(false);
+              }, 1000);
+              return;
+            }
+            var link = null;
+            diagram.links.each(function(l) {
+                if (l.fromNode === estadoActual && l.toNode === siguienteEstado) {
+                    link = l;
+                    return false;
+                }
+            });
+  
+            if (link === null) {
+              mostrarModal(false);
+              return;
+          }
+          estadoActual.findMainElement().stroke = "green";
+          estadoActual.findMainElement().fill = "#5B8FB9";
+  
+          setTimeout(function() {
+            link.path.stroke = "green";
+            link.path.strokeDashArray = [4, 2];
+          }, 2000);
+        
+          // Actualizar nodo actual y contador
+          let previousNode = estadoActual;
+          estadoActual = siguienteEstado;
+  
+          setTimeout(function() {
+            previousNode.findMainElement().stroke = "red";
+            link.path.stroke = "red";
+            //procesarSiguienteCaracter();
+          }, 2000);
+  
+          if (estadoActual.data.isAccept) {
+            estadoActual.findMainElement().stroke = "red";
+            estadoActual.findMainElement().fill = "yellow";
+            setTimeout(function() {
+              mostrarModal(true);
+            }, 1000);
+        } else {
             estadoActual.findMainElement().stroke = "black";
             estadoActual.findMainElement().fill = "red";
             setTimeout(function() {
-              mostrarModal(false);
+              //mostrarModal(false);
             }, 1000);
-            return;
-          }
-          let link = null;
-          diagram.links.each(function(l) {
-              if (l.fromNode === estadoActual && l.toNode === siguienteEstado) {
-                  link = l;
-                  return false;
-              }
-          });
-
-          if (link === null) {
-            mostrarModal(false);
-            return;
         }
-        estadoActual.findMainElement().stroke = "green";
-        estadoActual.findMainElement().fill = "#5B8FB9";
-
-        setTimeout(function() {
-          link.path.stroke = "green";
-          link.path.strokeDashArray = [4, 2];
-        }, timeoutDelayLinks);
       
-        // Actualizar nodo actual y contador
-        let previousNode = estadoActual;
-        estadoActual = siguienteEstado;
-
-        setTimeout(function() {
-          previousNode.findMainElement().stroke = "red";
-          link.path.stroke = "red";
-          //procesarSiguienteCaracter();
-        }, timeoutDelay);
-
-        if (currentNode.data.isAccept) {
-          estadoActual.findMainElement().stroke = "red";
-          estadoActual.findMainElement().fill = "yellow";
-          setTimeout(function() {
-            mostrarModal(true);
-          }, 1000);
-      } else {
-          estadoActual.findMainElement().stroke = "black";
-          estadoActual.findMainElement().fill = "red";
-          setTimeout(function() {
-            mostrarModal(false);
-          }, 1000);
-      }
     }
 
     // Verificar si se alcanzó un estado de aceptación
@@ -182,8 +190,42 @@ function procesarEntrada(evento,entrada) {
 
 function obtenerTope(){
   let elementosPila = document.querySelectorAll('.elementoPila')
-  let tope = elementosPila[0].children.textPila.textContent
+  let cantidad = elementosPila.length
+  console.log(cantidad)
+  let tope = cantidad ==1 ? elementosPila[0].children.textPila.textContent :elementosPila[0].textContent
+  //let tope = indice>0 ? elementosPila[0].textContent :  elementosPila[0].children.textPila.textContent
+  console.log(tope)
   return tope;
+}
+
+function añadirAapila(simbolos){
+  simbolos.map(simbolo=>{
+    setTimeout(()=>{
+      // Agregar el símbolo a la pila en el HTML
+      var contenedor = document.createElement('div');
+      contenedor.classList.add('elementoPila')
+    
+      var elemento = document.createElement('p');
+      elemento.classList.add('textPila');
+      elemento.innerText = simbolo;
+    
+      contenedor.appendChild(elemento)
+      containerPila.insertBefore(contenedor, containerPila.firstChild);
+    },1000)
+  })
+
+}
+
+function eliminarTope(){
+  // Obtener el contenedor de la pila
+  var containerPila = document.getElementById("Pila");
+
+  // Obtener todos los elementos <p> dentro del contenedor y eliminarlos
+  var elementosPila = containerPila.getElementsByTagName("div");
+  while (elementosPila.length > 0) {
+      elementosPila[0].parentNode.removeChild(elementosPila[0]);
+}
+
 }
 
 comprobarPalabra.addEventListener('click',(e)=>procesarEntrada(e,inputPalabra.value));
